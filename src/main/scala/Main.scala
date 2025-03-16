@@ -1,11 +1,20 @@
 object Main {
   def main(args: Array[String]): Unit = {
-    val filePath = "08-PropertiesLondon.csv"  
-    val properties: List[Property] = PropertyDataImporter.loadProperties(filePath)
+    val filePath = "08-PropertiesLondon.csv"
+    val properties: List[Property[Int]] = PropertyDataImporter.loadProperties(filePath)
 
     println(s"✅ Loaded ${properties.length} properties.")
 
-    // Print first 5 properties to test 
     properties.take(5).foreach(p => println(p.address.fullAddress))
+
+    properties.take(5).foreach(printPricedAndSized)
+  }
+
+  type PricedAndSized = { def price: Int; def area: Int }
+
+  import scala.reflect.Selectable.reflectiveSelectable
+
+  def printPricedAndSized(property: PricedAndSized): Unit = {
+    println(s"Price: ${property.price}, Area: ${property.area}")
   }
 }
