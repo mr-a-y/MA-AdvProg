@@ -1,16 +1,16 @@
 // jpc: we can get rid of the ugly curly braces. Yes it's optional but we can remove them
 // jpc: would it make sense to make the city an enum?
-case class Address(location: Option[String], city: String, postalCode: String) :
-  def fullAddress: String = location match 
+case class Address(location: Option[String], city: String, postalCode: String) {
+  def fullAddress: String = location match {
     case Some(loc) => s"$loc, $city, $postalCode"
     case None      => s"$city, $postalCode"
   }
 }
 
 // jpc: You can avoid using the curly brackets, they are sort of ugly  for the body of a trait { }
-trait Property[+T] {
+trait Property[+T] { // jpc: why is it a covariant? no justification provided.
   def name: String
-  def price: T
+  def price: T  // why is the price a Type parameter? no motivation for this, I see no need for this.
   def area: Int
   def bedrooms: Int
   def bathrooms: Int
@@ -26,7 +26,7 @@ trait Property[+T] {
 //jpc: I would probably delete this abstract class
 abstract class BaseProperty[T](
   val name: String,
-  val price: Int,
+  val price: T,
   val area: Int,
   val bedrooms: Int,
   val bathrooms: Int,
