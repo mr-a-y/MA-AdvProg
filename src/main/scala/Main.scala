@@ -1,3 +1,5 @@
+
+// jpc: I see that pretty much none of the suggestions has been taken into account. Unfortunate.
 object Main {
   def main(args: Array[String]): Unit = {
     val filePath = "08-PropertiesLondon.csv"
